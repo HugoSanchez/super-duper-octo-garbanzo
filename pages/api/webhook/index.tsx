@@ -10,7 +10,7 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 type Data = any;
 
 // This is your Stripe CLI webhook secret for testing your endpoint locally.
-const endpointSecret = "whsec_31d0b97f6045ad8dac2719144f8fe291cf421ce6cfd07187fab6e11bc7399b8a";
+const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET as string;
 
 
 export default async function handler(
