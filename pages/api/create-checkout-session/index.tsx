@@ -6,17 +6,14 @@ const STRIPE_TEST_KEY = process.env.STRIPE_TEST
 const stripe = require('stripe')(STRIPE_TEST_KEY);
 const prisma = new PrismaClient()
 
-type Data = {
-  name: string
-}
 
 export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse<any>
+    req: NextApiRequest,
+    res: NextApiResponse<any>
 ) {
 
   	let body = JSON.parse(req.body)
-
+    let BASE_URL = process.env.NEXT_PUBLIC_BASE_URL as string
  
     const session = await stripe.checkout.sessions.create({
         mode: 'payment',
@@ -32,7 +29,7 @@ export default async function handler(
 				destination: 'acct_1Nqtm6KmP2k2bi5U',
 			},
         },
-        success_url: 'https://example.com/success',
+        success_url: `${BASE_URL}/success/scc`,
         cancel_url: 'https://example.com/cancel',
     });
 
@@ -47,30 +44,19 @@ export default async function handler(
 			time: body.time,
             professional: {
                 connectOrCreate: {
-					create: {
-						name: body.professional
-
-					},
-					where: {
-						name: body.professional
-					}
+					create: {name: body.professional},
+					where: {name: body.professional}
                 }
             },
             patient: {
                 connectOrCreate: {
-                	create: {
-						email: body.email
-
-					},
-					where: {
-						email: body.email
-
-					}
+                	create: { email: body.email},
+					where: {email: body.email}
                 },
             },
         },
     })
-    console.log(checkout)
+
     res.status(200).json({ data: checkout })
 }
 

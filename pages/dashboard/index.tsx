@@ -3,7 +3,9 @@ import type { NextPage } from 'next'
 import CreateCheckoutForm from '../../components/CreateCheckoutForm'
 import { Toaster } from '../../components/common/Toaster'
 import * as Icons from '../../resources/icons'
+import Image from 'next/image'
 
+import scc from '../../logos/logo_soy.jpeg'
 
 const Dashboard: NextPage = (props: any) => {
 
@@ -59,7 +61,11 @@ const Dashboard: NextPage = (props: any) => {
 
 
 	return (
-		<div className="w-screen h-screen p-24">
+		<div className="relative w-screen h-screen p-24 pt-28">
+
+<           div className='absolute top-4 left-24 w-20 h-20'>
+                <Image src={scc} alt="Logo" layout="fit" objectFit="cover"  />
+            </div>
             
             <Toaster 
                 renderToaster={props.renderToaster}
@@ -71,31 +77,31 @@ const Dashboard: NextPage = (props: any) => {
 
             <div className='h-12 w-full flex flex-row bg-slate-100'>
                     <div className='w-3/12 flex items-center justify-center'>
-                        <p className='font-normal text-slate-500'>PACIENTE</p>
+                        <p className='font-semibold text-slate-500'>Paciente</p>
                     </div>
                     <div className='w-2/12 flex flex-row items-center justify-center'>
-                        <p className='font-normal text-slate-500'>FACULTATIVO</p>
+                        <p className='font-semibold text-slate-500'>Facultativo</p>
                     </div>
                     <div className='w-1/12 flex flex-row items-center justify-center'>
-                        <p className='font-normal text-slate-500'>TIPO</p>
+                        <p className='font-semibold text-slate-500'>Tipo</p>
                     </div>
                     <div className='w-1/12 flex flex-row items-center justify-center'>
-                        <p className='font-normal text-slate-500'>DIA</p>
+                        <p className='font-semibold text-slate-500'>Dia</p>
                     </div>
                     <div className='w-1/12 flex flex-row items-center justify-center'>
-                        <p className='font-normal text-slate-500'>HORA</p>
+                        <p className='font-semibold text-slate-500'>Hora</p>
                     </div>
                     <div className='w-1/12 flex items-center justify-center'>
-                        <p className='font-normal text-slate-500'>LINK</p>
+                        <p className='font-semibold text-slate-500'>Link</p>
                     </div>
                     <div className='w-1/12 flex flex-row items-center justify-center'>
-                        <p className='font-normal text-slate-500'>ENVIADO</p>
+                        <p className='font-semibold text-slate-500'>Envio</p>
                     </div>
                     <div className='w-1/12 flex flex-row items-center justify-center'>
-                        <p className='font-normal text-slate-500'>STATUS</p>
+                        <p className='font-semibold text-slate-500'>Estado</p>
                     </div>
                     <div className='w-1/12 flex flex-row items-center justify-center'>
-                        <p className='font-normal text-slate-500'>ACCION</p>
+                        <p className='font-semibold text-slate-500'>Accion</p>
                     </div>
                 </div>
                 <CreateCheckoutForm 
