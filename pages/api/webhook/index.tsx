@@ -39,6 +39,7 @@ export default async function handler(
             break;
         // ... handle other event types
         case 'checkout.session.completed':
+            console.log('HERE!!: ', event.data.object.id)
             await prisma.checkouts.update({
                 where: {sessionId: event.data.object.id},
                 data: {status: 'payed'}

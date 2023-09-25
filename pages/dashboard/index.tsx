@@ -31,11 +31,17 @@ const Dashboard: NextPage = () => {
         let response = await fetch(url)
         let data = await response.json()
         setCheckouts(data.data.reverse())
-        console.log(data.data)
+    }
+
+    const handleSentStatus = async (index: string | number, status: boolean) => {
+        let url = process.env.NEXT_PUBLIC_BASE_URL as string + '/api/create-checkout-session'
+		let response = await fetch(url, {method: 'POST', body: JSON.stringify({id: index, data: {sent: status}})})
+        setRenderSelector(false)
+        setSelectorIndex(index)
+        setRefetch(true)
     }
 
     const handleOpenSelector = (index: string | number) => {
-        console.log(index)
         setRenderSelector(true)
         setSelectorIndex(index)
     }
@@ -134,12 +140,12 @@ const Dashboard: NextPage = () => {
                                         <div className={`absolute top-0 z-10 bg-white p-2 border border-slate-200
                                             ${renderSelector && selectorIndex == index ? '' : 'hidden'}`}>
                                             <div
-                                                onClick={() => console.log(1)} 
+                                                onClick={() => handleSentStatus(checkout.id, true)} 
                                                 className='flex flex-row items-center p-2 hover:bg-slate-100 cursor-pointer'>
                                                 <p  className='font-light text-sm bg-emerald-100 px-2 rounded-md'>enviado</p>
                                             </div>
                                             <div
-                                                onClick={() => console.log(2)}  
+                                                onClick={() => handleSentStatus(checkout.id, false)}  
                                                 className='flex flex-row items-center p-2 hover:bg-slate-100 cursor-pointer'>
                                                 <p className='font-light text-sm bg-slate-200 px-2 rounded-md'>pendiente</p>                                               </div>
                                         </div>

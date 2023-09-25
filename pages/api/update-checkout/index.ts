@@ -16,7 +16,7 @@ export default async function handler(
 
     const checkouts = await prisma.checkouts.update({
         where: {id: body.id},
-        data: {}
+        data: body.data
     })
     console.log('here')
     console.log(checkouts)
