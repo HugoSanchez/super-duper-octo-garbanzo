@@ -18,8 +18,6 @@ export default async function handler(
             patient: true
         }
     })
-    console.log('here')
-    console.log(checkouts)
     res.status(200).json({ data: checkouts })
 }
 

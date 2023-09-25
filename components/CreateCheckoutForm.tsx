@@ -22,6 +22,9 @@ const CreateCheckoutForm = (props: any) => {
 		let url = process.env.NEXT_PUBLIC_BASE_URL as string + '/api/create-checkout-session'
 		let response = await fetch(url, {method: 'POST', body: JSON.stringify(data)})
 		let parsed = await response.json()
+		navigator.clipboard.writeText(parsed.data.url)
+		props.setRenderToaster(true)
+		props.setToasterMessage('Creado y copiado')
 		props.reftech(true)
 		resetInitialState()
 	}
@@ -153,7 +156,7 @@ const CreateCheckoutForm = (props: any) => {
 			<div className='w-1/12 flex flex-col items-center justify-center '>
 				<input 
 					type="text" 
-					name="email-paciente"
+					name="time"
 					value={time as string}
 					placeholder={`Añade hora`}
 					className="text-center w-11/12 flex items-center justify-center placeholder:pl-2 placeholder:text-slate-400 text-sm font-light placeholder:font-light focus:outline-none" 

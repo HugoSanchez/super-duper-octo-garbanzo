@@ -5,7 +5,7 @@ import { Toaster } from '../../components/common/Toaster'
 import * as Icons from '../../resources/icons'
 
 
-const Dashboard: NextPage = () => {
+const Dashboard: NextPage = (props: any) => {
 
     const [checkouts, setCheckouts] = useState<any[]>([])
     const [refetch, setRefetch] = useState<boolean>(false)
@@ -34,8 +34,8 @@ const Dashboard: NextPage = () => {
     }
 
     const handleSentStatus = async (index: string | number, status: boolean) => {
-        let url = process.env.NEXT_PUBLIC_BASE_URL as string + '/api/create-checkout-session'
-		let response = await fetch(url, {method: 'POST', body: JSON.stringify({id: index, data: {sent: status}})})
+        let url = process.env.NEXT_PUBLIC_BASE_URL as string + '/api/update-checkout'
+		await fetch(url, {method: 'POST', body: JSON.stringify({id: index, data: {sent: status}})})
         setRenderSelector(false)
         setSelectorIndex(index)
         setRefetch(true)
@@ -52,8 +52,8 @@ const Dashboard: NextPage = () => {
     }
 
     const handleCopyUrl = (url: string) => {
-        setRenderToaster(true)
-        setToasterMessage('copiado!')
+        props.setRenderToaster(true)
+        props.setToasterMessage('copiado!')
         navigator.clipboard.writeText(url)
     }
 
@@ -62,8 +62,8 @@ const Dashboard: NextPage = () => {
 		<div className="w-screen h-screen p-24">
             
             <Toaster 
-                renderToaster={renderToaster}
-                toasterMessage={toasterMessage}
+                renderToaster={props.renderToaster}
+                toasterMessage={props.toasterMessage}
                 closeToaster={closeToaster}
             />
             
@@ -98,7 +98,11 @@ const Dashboard: NextPage = () => {
                         <p className='font-normal text-slate-500'>ACCION</p>
                     </div>
                 </div>
-                <CreateCheckoutForm reftech={setRefetch}/>
+                <CreateCheckoutForm 
+                    reftech={setRefetch}
+                    setRenderToaster={props.setRenderToaster}
+                    setToasterMessage={props.setToasterMessage}
+                />
                 <div className='mt-4 border-slate-200 border border-t-slate-100'>
                     {
                         checkouts.map((checkout, index) => {
